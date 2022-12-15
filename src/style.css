@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600&display=swap");
+
+/* manrope */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: "Manrope", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #f6f7f9;
+  }
+
+  code {
+    font-family: "Manrope", sans-serif;
+  }
+
+  .contents__holder::-webkit-scrollbar {
+    width: 5px;
+  }
+  .contents__holder::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .contents__holder::-webkit-scrollbar-thumb {
+    background: #49494b7a;
+    border-radius: 5px;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 700;
+  }
+
+  p {
+    font-weight: 400;
+  }
+  .contents__holder::-webkit-scrollbar {
+    width: 5px;
+  }
+  .contents__holder::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .contents__holder::-webkit-scrollbar-thumb {
+    background: #49494b7a;
+    border-radius: 5px;
+  }
+}
+
+input {
+  background-color: transparent;
+  border: 1px solid #49494b;
+  border-radius: 2px;
+  padding: 0.4rem 0.75rem;
+}
+
+input:focus {
+  outline: none;
+}
