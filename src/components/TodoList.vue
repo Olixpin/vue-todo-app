@@ -12,7 +12,7 @@
     />
     <ul class="w-full flex flex-col gap-3">
       <li
-        v-for="(todo, i) in todos"
+        v-for="(todo, i) in todosFiltered"
         :key="todo.id"
         class="flex justify-between text-xl text-textBody"
       >
@@ -85,24 +85,38 @@
       <div class="flex justify-center items-center gap-1">
         <button
           class="shadow-sm border-[1px] border-textPlacecholder rounded-sm flex justify-center items-center px-2 py-1 hover:text-textPlacecholder transition-all"
-          @click=""
+          :class="{
+            'bg-successMain text-white hover:text-grey100': filter === 'all',
+            'text-textBody': todos.length,
+          }"
+          @click="filter = 'all'"
         >
           All
         </button>
         <button
           class="shadow-sm border-[1px] border-textPlacecholder rounded-sm flex justify-center items-center px-2 py-1 hover:text-textPlacecholder transition-all"
-          @click=""
+          :class="{
+            'bg-successMain text-white hover:text-grey100': filter === 'active',
+            'text-textBody': todos.length,
+          }"
+          @click="filter = 'active'"
         >
           Active
         </button>
         <button
           class="shadow-sm border-[1px] border-textPlacecholder rounded-sm flex justify-center items-center px-2 py-1 hover:text-textPlacecholder transition-all"
-          @click=""
+          :class="{
+            'bg-successMain text-white hover:text-grey100':
+              filter === 'completed',
+            'text-textBody': todos.length,
+          }"
+          @click="filter = 'completed'"
         >
           Completed
         </button>
       </div>
       <button
+        v-if="showClearCompledButton"
         class="shadow-sm border-[1px] border-textPlacecholder rounded-sm flex justify-center items-center px-2 py-1 hover:text-textPlacecholder transition-all"
         @click="clearCompleted"
       >
@@ -121,6 +135,7 @@ export default {
       todo: "",
       newId: 2,
       beforeEditCache: "",
+      filter: "all",
       todos: [
         { id: 1, title: "Buy Milk", completed: false, editing: false },
         { id: 2, title: "Wash Dad's Car", completed: false, editing: false },
@@ -172,6 +187,10 @@ export default {
       todo.title = this.beforeEditCache;
       todo.editing = false;
     },
+
+    clearCompleted() {
+      this.todos = this.todos.filter((todo) => !todo.completed);
+    },
   },
 
   watch: {
@@ -193,8 +212,20 @@ export default {
       return this.todos.filter((todo) => !todo.completed).length;
     },
 
-    clearCompleted() {
-      this.todos = this.todos.filter((todo) => !todo.completed);
+    todosFiltered() {
+      if (this.filter === "all") {
+        return this.todos;
+      } else if (this.filter === "active") {
+        return this.todos.filter((todo) => !todo.completed);
+      } else if (this.filter === "completed") {
+        return this.todos.filter((todo) => todo.completed);
+      }
+
+      return this.todos;
+    },
+
+    showClearCompledButton() {
+      return this.todos.filter((todo) => todo.completed).length > 0;
     },
   },
 
